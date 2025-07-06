@@ -12,8 +12,6 @@ add_executable(Minecraft-mod-classifier src/main.cpp)
 
 target_include_directories(Minecraft-mod-classifier PRIVATE src/include)
 
-target_link_libraries(Minecraft-mod-classifier PRIVATE stdc++fs)
-
 add_custom_command(
         TARGET Minecraft-mod-classifier
         POST_BUILD
