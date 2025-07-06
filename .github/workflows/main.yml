@@ -23,7 +23,7 @@ jobs:
       run: cmake -B build -S .
 
     - name: Build
-      run: cmake --build
+      run: cmake --build build --config Release
 
     # 上传构建产物
     - name: Upload build artifacts
