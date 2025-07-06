@@ -9,7 +9,6 @@
 #include <regex>      // 用于正则表达式
 #include <map>        // 用于快速查找 Mod 类型
 #include "include/nlohmann/json.hpp" // 引入 nlohmann/json 头文件
-#include <windows.h>
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
@@ -222,7 +221,7 @@ void classifyMods(const std::vector<ModInfo>& mods, const std::string& inputDir,
 }
 
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
+    system("chcp 65001");
 
     // 打开日志文件，以追加模式写入
     logFile.open(LOG_FILENAME, std::ios::app);
