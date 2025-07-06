@@ -8,16 +8,38 @@
 #include <filesystem> // C++17 文件系统库
 #include <regex>      // 用于正则表达式
 #include <map>        // 用于快速查找 Mod 类型
-#include "include/nlohmann/json.hpp"   // 引入 nlohmann/json 头文件
-
-// 针对 Windows 平台的乱码问题，引入 Windows.h
-#ifdef _WIN32
+#include "include/nlohmann/json.hpp" // 引入 nlohmann/json 头文件
 #include <windows.h>
-#endif
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
+// 全局日志文件流
+std::ofstream logFile;
+const std::string LOG_FILENAME = "mod_classifier.log"; // 日志文件名
+
+// --- 辅助函数：输出日志信息到控制台和文件 ---
+void logMessage(const std::string& message, bool isError = false) {
+    // 获取当前时间作为时间戳
+    std::time_t now = std::time(nullptr);
+    std::tm* ltm = std::localtime(&now);
+
+    // 格式化时间戳
+    std::stringstream ss;
+    ss << std::put_time(ltm, "[%Y-%m-%d %H:%M:%S]");
+
+    // 输出到控制台
+    if (isError) {
+        std::cerr << ss.str() << " 错误: " << message << std::endl;
+    } else {
+        std::cout << ss.str() << " 信息: " << message << std::endl;
+    }
+
+    // 输出到日志文件
+    if (logFile.is_open()) {
+        logFile << ss.str() << " " << (isError ? "错误" : "信息") << ": " << message << std::endl;
+    }
+}
 // --- 1. Mod 数据结构定义 ---
 enum class ModType {
     ClientOnly,                 // 仅客户端
@@ -188,22 +210,28 @@ void classifyMods(const std::vector<ModInfo>& mods, const std::string& inputDir,
                     // 复制文件，如果目标已存在则覆盖
                     fs::copy(entry.path(), destinationPath, fs::copy_options::overwrite_existing);
                     // 如果你想移动而不是复制，可以使用 fs::rename(entry.path(), destinationPath);
-                    std::cout << "已分类 Mod: " << fullFileName << " (干净名称: " << cleanFileName << ") 到 " << targetSubDir << std::endl;
+                    logMessage("已分类 Mod: " + fullFileName + " (干净名称: " + cleanFileName + ") 到 " + targetSubDir); // 使用日志系统
                 } catch (const fs::filesystem_error& e) {
-                    std::cerr << "错误: 无法分类 Mod " << fullFileName << ": " << e.what() << std::endl;
+                    logMessage("无法分类 Mod " + fullFileName + ": " + e.what(), true); // 使用日志系统
                 }
             } else {
-                std::cerr << "警告: 未在 mods_data.json 中找到 Mod 的分类信息: " << fullFileName << " (干净名称: " << cleanFileName << ")" << std::endl;
+                logMessage("未在 mods_data.json 中找到 Mod 的分类信息: " + fullFileName + " (干净名称: " + cleanFileName + ")", true); // 使用日志系统
             }
         }
     }
 }
 
 int main() {
-    // 针对 Windows 平台设置控制台输出编码为 UTF-8，解决中文乱码问题
-#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-#endif
+
+    // 打开日志文件，以追加模式写入
+    logFile.open(LOG_FILENAME, std::ios::app);
+    if (!logFile.is_open()) {
+        std::cerr << "错误: 无法打开日志文件: " << LOG_FILENAME << std::endl;
+        // 即使无法打开日志文件，程序也尝试继续运行，但只输出到控制台
+    }
+
+    logMessage("程序启动。"); // 记录程序启动
 
     std::string inputDirectory = "Input";
     std::string outputDirectory = "Output";
@@ -211,50 +239,54 @@ int main() {
 
     // 检查 Input 目录是否存在，如果不存在则创建
     if (!fs::exists(inputDirectory)) {
-        std::cout << "检测到 'Input' 文件夹不存在，正在创建..." << std::endl;
+        logMessage("检测到 'Input' 文件夹不存在，正在创建...");
         if (!fs::create_directories(inputDirectory)) {
-            std::cerr << "错误: 无法创建 'Input' 文件夹。请检查权限或路径。" << std::endl;
+            logMessage("无法创建 'Input' 文件夹。请检查权限或路径。", true);
+            logFile.close(); // 关闭日志文件
             return 1;
         }
     } else if (!fs::is_directory(inputDirectory)) {
-        std::cerr << "错误: 'Input' 路径存在但不是一个目录。请检查。" << std::endl;
+        logMessage("'Input' 路径存在但不是一个目录。请检查。", true);
+        logFile.close(); // 关闭日志文件
         return 1;
     }
 
     // 检查 mods_data.json 是否存在，如果不存在则创建并写入空数组
     if (!fs::exists(jsonDataFile)) {
-        std::cout << "检测到 'mods_data.json' 文件不存在，正在创建并初始化为空数组..." << std::endl;
+        logMessage("检测到 'mods_data.json' 文件不存在，正在创建并初始化为空数组...", false);
         std::ofstream outFile(jsonDataFile);
         if (outFile.is_open()) {
             outFile << "[]"; // 写入一个空的 JSON 数组
             outFile.close();
-            std::cout << "'mods_data.json' 已成功创建和初始化。" << std::endl;
+            logMessage("'mods_data.json' 已成功创建和初始化。", false);
         } else {
-            std::cerr << "错误: 无法创建或写入 'mods_data.json' 文件。请检查权限或路径。" << std::endl;
+            logMessage("无法创建或写入 'mods_data.json' 文件。请检查权限或路径。", true);
+            logFile.close(); // 关闭日志文件
             return 1;
         }
     } else if (!fs::is_regular_file(jsonDataFile)) {
-        std::cerr << "错误: 'mods_data.json' 路径存在但不是一个文件。请检查。" << std::endl;
+        logMessage("'mods_data.json' 路径存在但不是一个文件。请检查。", true);
+        logFile.close(); // 关闭日志文件
         return 1;
     }
 
-    std::cout << "正在读取 Mod 数据..." << std::endl;
+    logMessage("正在读取 Mod 数据...");
     std::vector<ModInfo> mods = readModDataFromJson(jsonDataFile);
 
     if (mods.empty()) {
-        std::cout << "没有从 JSON 文件中读取到 Mod 数据，或者文件为空/有误。请确保 'mods_data.json' 包含有效的 Mod 信息。" << std::endl;
-        // 即使没有 Mod 数据，程序也可以继续运行，只是不会有文件被分类。
+        logMessage("没有从 JSON 文件中读取到 Mod 数据，或者文件为空/有误。请确保 'mods_data.json' 包含有效的 Mod 信息。");
     }
 
-    std::cout << "开始分类 Mod..." << std::endl;
+    logMessage("开始分类 Mod...");
     classifyMods(mods, inputDirectory, outputDirectory);
 
-    std::cout << "Mod 分类完成！" << std::endl;
+    logMessage("Mod 分类完成！"); // 记录程序完成
 
     // 添加这一行，等待用户按任意键才关闭窗口
     std::cout << "按任意键退出..." << std::endl; // Prompt user to press a key
     std::cin.ignore(); // 忽略缓冲区中可能存在的任何字符（例如之前的换行符）
     std::cin.get();    // 等待用户输入一个字符 (即按任意键)
 
+    logFile.close(); // 程序结束前关闭日志文件
     return 0;
 }

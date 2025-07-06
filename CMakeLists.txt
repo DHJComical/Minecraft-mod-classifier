@@ -8,16 +8,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build")
 
-add_executable(ModClassifier src/main.cpp)
+add_executable(Minecraft-mod-classifier src/main.cpp)
 
-target_include_directories(ModClassifier PRIVATE src/include)
+target_include_directories(Minecraft-mod-classifier PRIVATE src/include)
 
-target_link_libraries(ModClassifier PRIVATE stdc++fs)
+target_link_libraries(Minecraft-mod-classifier PRIVATE stdc++fs)
 
 add_custom_command(
-        TARGET ModClassifier
+        TARGET Minecraft-mod-classifier
         POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "Minecraft-mod-classifier/assets/mods-data.json"
-        "Minecraft-mod-classifier/build"
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "${CMAKE_SOURCE_DIR}/assets/mods_data.json"
+        "${CMAKE_SOURCE_DIR}/build/"
 )
