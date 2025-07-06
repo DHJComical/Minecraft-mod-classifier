@@ -17,7 +17,7 @@ target_link_libraries(ModClassifier PRIVATE stdc++fs)
 add_custom_command(
         TARGET ModClassifier
         POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        COMMAND ${CMAKE_COMMAND} -E copy
         "Minecraft-mod-classifier/assets/mods-data.json"
         "Minecraft-mod-classifier/build"
 )
