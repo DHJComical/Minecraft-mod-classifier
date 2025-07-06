@@ -26,9 +26,8 @@ jobs:
       run: cmake --build build --config Release
 
     - name: Copy assets
-      run: |
-        mkdir -p build/assets
-        cp assets/mods-data.json build/assets/
+      run:
+        cp assets/mods-data.json build/
     
     # 上传构建产物
     - name: Upload build artifacts
