@@ -1,0 +1,42 @@
+[
+  {
+    "name": "jei.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "journeymap.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "ftbchunks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "spark.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "create.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "appleskin.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "voicechat.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "carpet.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "the_vault.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tinkersconstruct.jar",
+    "type": "client_and_server_required"
+  }
+]
