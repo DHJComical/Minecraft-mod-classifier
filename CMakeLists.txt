@@ -12,12 +12,4 @@ add_executable(ModClassifier src/main.cpp)
 
 target_include_directories(ModClassifier PRIVATE src/include)
 
-target_link_libraries(ModClassifier PRIVATE stdc++fs)
 
-add_custom_command(
-        TARGET ModClassifier
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        "Minecraft-mod-classifier/assets/"
-        "Minecraft-mod-classifier/build"
-)
