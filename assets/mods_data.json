@@ -36,7 +36,567 @@
     "type": "client_and_server_required"
   },
   {
-    "name": "tinkersconstruct.jar",
+    "name": "tconstruct.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "optifine.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "sodium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "iris.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "lithium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "phosphor.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "roughlyenoughitems.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "waila.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "hwyla.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "jade.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "worldedit.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "worldguard.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "essentials.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "luckperms.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "thermalexpansion.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "thermalfoundation.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mekanism.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "enderio.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ae2.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "refinedstorage.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ic2.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "buildcraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "forestry.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "biomesoplenty.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "twilightforest.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "aether.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "immersiveengineering.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "botania.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "thaumcraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "bloodmagic.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "astralsorcery.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "chisel.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "chiselsandbits.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "bibliocraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "decocraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ironchest.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "storagedrawers.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "extrautilities2.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "actuallyadditions.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "harvestcraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cookingforblockheads.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mysticalagriculture.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tinkerscomplement.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mantle.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cofhcore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "redstoneflux.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "baubles.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "curios.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "jeiintegration.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "jeresources.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "crafttweaker.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "modtweaker.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "forgemultipart.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mcjtylib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "rftools.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "rftoolsdim.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "theoneprobe.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "topaddons.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "inventorytweaks.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "mousetweaks.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "controlling.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "defaultoptions.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "betterfoliage.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "dynamiclights.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "soundfilters.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "ambientsounds.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "minimap.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "xaerominimap.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "xaeroworldmap.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "antiqueatlas.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "damageindicators.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "neat.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "betterfps.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "fastcraft.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "foamfix.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "vanillafix.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "textformatting.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "chattweaks.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "simplevoicechat.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "discordintegration.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "servertabinfo.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "morpheus.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "sleepingoverhaul.jar",
+    "type": "server_only"
+  },
+  {
+    "name": "corpse.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "corpse.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "gravestone.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "backpacks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ironbackpacks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "sophisticatedbackpacks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "travelersbackpack.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "waystones.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "journeymapwaypoints.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fastleafdecay.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "treecapitator.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "veinminer.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "oreexcavation.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "autoreglib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "quark.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "charm.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "supplementaries.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "decorativeblocks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mcwfurniture.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mcwdoors.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mcwwindows.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "farmersdelight.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "createaddition.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "createcraftsadditions.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "computercraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "opencomputers.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "securitycraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "malisiscore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tardismod.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dimdoors.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "compactmachines.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "littletiles.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "chiseledme.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "animania.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mocreatures.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alexsmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "iceandfire.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "lycanitesmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "primitivemobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mowziesmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "aquaculture.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "betteranimalsplus.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "natura.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "integrateddynamics.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "integratedtunnels.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "integratedterminals.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cyclopscore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "commoncapabilities.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "placebo.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "bookshelf.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "citadel.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "geckolib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "architectury.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cloth_config.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fabric_api.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "forge.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "kotlinforforge.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "forgelin.jar",
     "type": "client_and_server_required"
   }
 ]
