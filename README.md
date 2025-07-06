@@ -19,6 +19,9 @@
 - 将所有Mod的jar文件放到Input文件夹里，再次运行Minecraft-mod-classifier.exe
 - 从Output里取出分类好的文件
 
+## 贡献
+- 这个项目和万用汉化包一样，是一个要靠社区的项目，欢迎任何人提交mods_data.json以更新分类资料
+
 ## 编译
 - 需要安装CMake及任意C++编译器
 - 导入CLion等运行编译
