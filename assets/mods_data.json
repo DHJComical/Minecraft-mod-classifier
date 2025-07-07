@@ -4,11 +4,383 @@
     "type": "client_required_server_optional"
   },
   {
+    "name": "polylib.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "hei.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "player-animation-lib.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "cloth-config.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "common-networking.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "connectorextras.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "collective.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "fabric-api.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "recipeessentials.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "redirector.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "saturn.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "vanillaicecreamfix.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "ksyxis.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "modernfix.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "nochatreports.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "memorysweep.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "radium.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "midnightlib.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "ferritecore.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "modernui.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "craftingtweaks.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "smoothboot.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "achievementoptimizer.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "noisium.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "dimthread.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "fastfurnace.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "alternate_current.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "ftbquestsoptimizer.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "starlight.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "chunky.jar",
+    "type": "client_optional_server_required"
+  },
+  {
     "name": "journeymap.jar",
     "type": "client_only"
   },
   {
+    "name": "advanced-xray.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "continuity.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "inventoryhud.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "cullleaves.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "notenoughanimations.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "searchables.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "asyncparticles.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "lazurite.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "oculus.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "libipn.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "chloride.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "embeddium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "rubidium-extra.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "sodiumoptionsapi.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "mafglib.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "rebind_narrator.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "inventoryprofilesnext.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "customskinloader_forgev2.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "toadlib.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "tweakerge.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "yeetusexperimentus.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "skinlayers3d.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "entityculling.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "chat_heads.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "i18nupdatemod.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "imblocker.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "jecharacters.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "flerovium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "ruok.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "palladium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "sodiumdynamiclights.jar",
+    "type": "client_only"
+  },
+  {
     "name": "ftbchunks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "coroutil.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ftb-ultimine.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "item-filters.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "slashbladeresharped.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "sjap_resharpened.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ldip.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mysterious_mountain_lib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fastworkbench.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "taxfreelevels.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "connector.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "justenoughadvancements.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "witherstormmod.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ftb-teams.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ftb-quests.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "projecte.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "teamprojecte.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "sophisticatedcore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "clumps.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "watut.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "usefulslime.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ticex.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "projecte_integration.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "prinegorerouse.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "libx.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "packetfixer.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "slashblade_useful_addon.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ftb-library.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cupboard.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "balm.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "addonapi.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alltheleaks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cwsm v-sides.jar",
     "type": "client_and_server_required"
   },
   {
@@ -61,6 +433,10 @@
   },
   {
     "name": "roughlyenoughitems.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "configuration.jar",
     "type": "client_required_server_optional"
   },
   {
@@ -577,10 +953,6 @@
   },
   {
     "name": "architectury.jar",
-    "type": "client_and_server_required"
-  },
-  {
-    "name": "cloth_config.jar",
     "type": "client_and_server_required"
   },
   {
