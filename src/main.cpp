@@ -110,19 +110,24 @@ std::string getCleanModName(const std::string& fullFileName) {
 
     // 2. 迭代移除版本号、Minecraft版本、加载器后缀和通用标签
     // 匹配模式：
-    //   - `[-_+\\s]` 作为分隔符 (新增了 `\\s` 匹配空格)
-    //   - 后跟 `v?` (可选的 'v')
-    //   - 接着是数字和点 (`[0-9.]+`)，后面可以有字母数字、下划线、连字符、加号、点
-    //   - 或 `mc` 后跟数字和点
-    //   - 或精确匹配的加载器/阶段名称 (如 forge, fabric, snapshot, beta, alpha, universal, all)
+    //   - `[-_+\\s.]` 作为分隔符 (允许连字符、下划线、加号、空格、点)
+    //   - 后跟：
+    //     - `v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*` (标准版本号，如 -1.0.0, +1.20.1, -v1.0.0-beta)
+    //     - `mc[0-9]+(?:\\.[0-9]+)*` (Minecraft 版本号，如 -mc1.16.5)
+    //     - `forge|fabric|quilt|neoforge|rift|liteloader` (精确匹配的加载器名称)
+    //     - `snapshot|pre|rc|beta|alpha` (精确匹配的发布阶段)
+    //     - `universal|all` (精确匹配的通用标签)
     //   - `$` 确保匹配发生在字符串的末尾
     std::regex suffix_regex(
-            "[-_+\\s](?:v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*" // 标准版本号，如 -1.0.0, +1.20.1, -v1.0.0-beta
-            "|mc[0-9]+(?:\\.[0-9]+)*" // Minecraft 版本号，如 -mc1.16.5
-            "|forge|fabric|quilt|neoforge|rift|liteloader" // 精确匹配的加载器名称
-            "|snapshot|pre|rc|beta|alpha" // 精确匹配的发布阶段
-            "|universal|all" // 精确匹配的通用标签
-            ")$", std::regex_constants::icase // 忽略大小写匹配，并确保匹配到字符串末尾
+            "[-_+\\s.]" // Delimiters: hyphen, underscore, plus, space, DOT
+            "(?:" // Start non-capturing group for the patterns to remove
+            "v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*" // Standard version, e.g., -1.0.0, +1.20.1, -v1.0.0-beta
+            "|mc[0-9]+(?:\\.[0-9]+)*" // Minecraft version, e.g., -mc1.16.5
+            "|forge|fabric|quilt|neoforge|rift|liteloader" // Exact loader names
+            "|snapshot|pre|rc|beta|alpha" // Exact release stages
+            "|universal|all" // Exact common tags
+            ")" // End non-capturing group for patterns
+            "$", std::regex_constants::icase // Anchor to the end, ignore case
     );
 
     // 循环移除匹配的后缀，直到没有更多匹配
