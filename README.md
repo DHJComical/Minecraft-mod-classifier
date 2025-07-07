@@ -10,6 +10,7 @@
     - 客户端必装，服务端可选 (ClientRequiredServerOptional)
     - 客户端可选，服务端必装 (ClientOptionalServerRequired)
     - 客户端和服务端都必装 (ClientAndServerRequired)
+    - 客户端和服务端都可选 (ClientOptionalServerOptional)
 - 智能文件名清理: 程序能够自动处理 Mod 文件名中常见的干扰信息，如版本号（例如 1.16.5-1.0.0）、Minecraft 版本（例如 mc1.12）以及方括号内的中文译名（例如 [我的模组]），确保能与 mods_data.json 中定义的“干净”Mod 名称进行准确匹配。
 - 日志系统: 所有重要的程序运行信息、分类结果、警告和错误都会被记录到 mod_classifier.log 文件中，方便用户查看和调试。
 
