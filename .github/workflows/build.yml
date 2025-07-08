@@ -137,10 +137,10 @@ jobs:
             cp assets/mods_data.json artifacts/
           fi
           
-          # 重命名文件以包含架构信息
+          # 重命名可执行文件以包含架构信息，但保留JSON文件原名
           cd artifacts
           for file in *${{ matrix.executable_suffix }}; do
-            if [ -f "$file" ]; then
+            if [ -f "$file" ] && [[ "$file" != *.json ]]; then
               mv "$file" "${file%${{ matrix.executable_suffix }}}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.executable_suffix }}"
             fi
           done
@@ -157,6 +157,8 @@ jobs:
     if: github.event_name == 'release'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 添加写权限
     steps:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -171,10 +173,10 @@ jobs:
               cd "$dir"
               if [[ "$dir" == *"windows"* ]]; then
                 # Windows 平台使用 zip
-                zip -r "../${dir%/}.zip" *
+                zip -r "../${dir%/}.zip" .
               else
                 # Linux 平台使用 tar.gz
-                tar -czf "../${dir%/}.tar.gz" *
+                tar -czf "../${dir%/}.tar.gz" .
               fi
               cd ..
             fi
@@ -186,5 +188,4 @@ jobs:
           files: |
             release-artifacts/*.tar.gz
             release-artifacts/*.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
