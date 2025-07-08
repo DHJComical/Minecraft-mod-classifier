@@ -4,11 +4,39 @@
     "type": "client_required_server_optional"
   },
   {
+    "name": "hadenoughitems.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "jeroreintegration.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "justenoughresources.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "konkrete.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "ingameinfoxml.jar",
+    "type": "client_required_server_optional"
+  },
+  {
     "name": "polylib.jar",
     "type": "client_required_server_optional"
   },
   {
-    "name": "hei.jar",
+    "name": "astatine.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "distanthorizons.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "aquaacrobatics.jar",
     "type": "client_required_server_optional"
   },
   {
@@ -20,11 +48,31 @@
     "type": "client_optional_server_optional"
   },
   {
+    "name": "!configanytime.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "vintagefix.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "alfheim.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "flare.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
     "name": "common-networking.jar",
     "type": "client_optional_server_optional"
   },
   {
     "name": "connectorextras.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "!mixinbooter.jar",
     "type": "client_optional_server_optional"
   },
   {
@@ -41,6 +89,10 @@
   },
   {
     "name": "redirector.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "redirectionor.jar",
     "type": "client_optional_server_optional"
   },
   {
@@ -97,6 +149,14 @@
   },
   {
     "name": "achievementoptimizer.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "hybridfix.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "unidict.jar",
     "type": "client_optional_server_required"
   },
   {
@@ -200,6 +260,98 @@
     "type": "client_only"
   },
   {
+    "name": "unicodefix.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "zume.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "++relauncher.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "valkyrie.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "renderlib.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "smoothfont.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "screenshot_viewer.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "resourceloader.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "neonium.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "neverenoughanimations.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "nonconflictkeys.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "particleculling.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "modernsplash.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "inputmethodblocker.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "itemzoom.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "gogskybox.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "gnetum.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "chatheadsyg.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "farsight.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "3dskinlayers.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "bedbugs.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "blur.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "celeritas.jar",
+    "type": "client_only"
+  },
+  {
     "name": "rebind_narrator.jar",
     "type": "client_only"
   },
@@ -209,6 +361,10 @@
   },
   {
     "name": "customskinloader_forgev2.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "customskinloader_forgev1.jar",
     "type": "client_only"
   },
   {
@@ -277,6 +433,70 @@
   },
   {
     "name": "ftb-ultimine.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "!red-core-mc.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "+fugue.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "censoredasm5.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ctm.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "wrapup.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fixeroo.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "universaltweaks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "_supermartijn642corelib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "wanionlib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "jaopca.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "scalar.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "stellarcore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "topextras.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tesla.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "jeivillagers.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "lunatriuscore.jar",
     "type": "client_and_server_required"
   },
   {
