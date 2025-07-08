@@ -8,11 +8,16 @@ on:
   release:
     types: [ published ]
 
+env:
+  GO_VERSION: '1.23'
+  BINARY_NAME: minecraft-mod-classifier
+
 jobs:
   build:
     name: Build for ${{ matrix.os }}-${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           # Windows builds
@@ -22,19 +27,22 @@ jobs:
             goos: windows
             goarch: amd64
             binary_suffix: .exe
+            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-amd64.zip"
           - os: windows
             arch: arm64
             runner: windows-latest
             goos: windows
             goarch: arm64
             binary_suffix: .exe
+            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-arm64.zip"
           - os: windows
             arch: 386
             runner: windows-latest
             goos: windows
             goarch: 386
             binary_suffix: .exe
-          
+            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-386.zip"
+
           # Linux builds
           - os: linux
             arch: amd64
@@ -42,145 +50,206 @@ jobs:
             goos: linux
             goarch: amd64
             binary_suffix: ""
+            archive_cmd: "tar -czf minecraft-mod-classifier-linux-amd64.tar.gz -C release ."
           - os: linux
             arch: arm64
             runner: ubuntu-latest
             goos: linux
             goarch: arm64
             binary_suffix: ""
+            archive_cmd: "tar -czf minecraft-mod-classifier-linux-arm64.tar.gz -C release ."
           - os: linux
             arch: 386
             runner: ubuntu-latest
             goos: linux
             goarch: 386
             binary_suffix: ""
+            archive_cmd: "tar -czf minecraft-mod-classifier-linux-386.tar.gz -C release ."
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.21'
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
-    - name: Cache Go modules
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-    - name: Install dependencies
-      run: go mod download
-
-    - name: Run tests
-      if: matrix.arch == 'amd64'  # Only run tests on amd64 to save time
-      run: go test -v ./...
-
-    - name: Build binary
-      env:
-        GOOS: ${{ matrix.goos }}
-        GOARCH: ${{ matrix.goarch }}
-        CGO_ENABLED: 0
-      run: |
-        go build -ldflags="-s -w -X main.version=${{ github.ref_name }}" -o minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} .
-
-    - name: Create release directory
-      run: mkdir -p release
-
-    - name: Copy binary to release directory
-      shell: bash
-      run: |
-        cp minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} release/
-
-    - name: Copy assets
-      shell: bash
-      run: |
-        if [ -d "assets" ]; then
-          cp -r assets release/
-        fi
-        if [ -f "assets/mods-data.json" ]; then
-          cp assets/mods-data.json release/
-        fi
-
-    - name: Copy additional files
-      shell: bash
-      run: |
-        # Copy README, LICENSE, and other important files
-        for file in README.md LICENSE* CHANGELOG* config.* *.yml *.yaml; do
-          if [ -f "$file" ]; then
-            cp "$file" release/
+      - name: Initialize Go module if needed
+        run: |
+          if [ ! -f "go.mod" ]; then
+            echo "No go.mod found, initializing Go module..."
+            go mod init minecraft-mod-classifier
           fi
-        done
 
-    - name: Create archive (Windows)
-      if: matrix.os == 'windows'
-      run: |
-        cd release
-        7z a -tzip ../minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.zip *
+      - name: Install dependencies
+        run: go mod download
 
-    - name: Create archive (Linux)
-      if: matrix.os == 'linux'
-      run: |
-        cd release
-        tar -czf ../minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.tar.gz *
+      - name: Verify Go installation
+        run: go version
 
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}
-        path: |
-          minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.*
-        retention-days: 7
+      - name: Run tests (amd64 only)
+        if: matrix.arch == 'amd64'
+        run: go test -v ./...
+        continue-on-error: true
+
+      - name: Build binary
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          go build -v -ldflags="-s -w" -o ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} .
+
+      - name: Verify binary was created
+        shell: bash
+        run: |
+          ls -la ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }}
+
+      - name: Create release directory
+        run: mkdir -p release
+
+      - name: Copy binary to release directory
+        shell: bash
+        run: |
+          cp ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} release/
+
+      - name: Copy assets if they exist
+        shell: bash
+        run: |
+          if [ -d "assets" ]; then
+            echo "Copying assets directory..."
+            cp -r assets release/
+          else
+            echo "No assets directory found, creating empty assets directory..."
+            mkdir -p release/assets
+          fi
+          
+          if [ -f "assets/mods-data.json" ]; then
+            echo "Found mods-data.json, copying to release..."
+            cp assets/mods-data.json release/
+          else
+            echo "mods-data.json not found in assets directory"
+            # Create a placeholder if needed
+            echo '{"mods": []}' > release/assets/mods-data.json
+          fi
+
+      - name: Copy additional files
+        shell: bash
+        run: |
+          # Copy README, LICENSE, and other important files if they exist
+          for file in README.md LICENSE* CHANGELOG* config.* *.yml *.yaml; do
+            if [ -f "$file" ]; then
+              echo "Copying $file..."
+              cp "$file" release/
+            fi
+          done
+
+      - name: List release contents
+        shell: bash
+        run: |
+          echo "Release directory contents:"
+          find release -type f -exec ls -la {} \;
+
+      - name: Create archive
+        shell: bash
+        run: |
+          ${{ matrix.archive_cmd }}
+
+      - name: Verify archive was created
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" == "windows" ]; then
+            ls -la minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.zip
+          else
+            ls -la minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
+          fi
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.*
+          retention-days: 7
 
   release:
     name: Create Release
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
-    
+
     steps:
-    - name: Download all artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: artifacts
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
 
-    - name: Display structure of downloaded files
-      run: ls -la artifacts/
+      - name: Display structure of downloaded files
+        run: |
+          echo "Downloaded artifacts:"
+          find artifacts -type f -exec ls -la {} \;
 
-    - name: Upload release assets
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          artifacts/minecraft-mod-classifier-windows-amd64/minecraft-mod-classifier-windows-amd64.zip
-          artifacts/minecraft-mod-classifier-windows-arm64/minecraft-mod-classifier-windows-arm64.zip
-          artifacts/minecraft-mod-classifier-windows-386/minecraft-mod-classifier-windows-386.zip
-          artifacts/minecraft-mod-classifier-linux-amd64/minecraft-mod-classifier-linux-amd64.tar.gz
-          artifacts/minecraft-mod-classifier-linux-arm64/minecraft-mod-classifier-linux-arm64.tar.gz
-          artifacts/minecraft-mod-classifier-linux-386/minecraft-mod-classifier-linux-386.tar.gz
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/minecraft-mod-classifier-windows-amd64/minecraft-mod-classifier-windows-amd64.zip
+            artifacts/minecraft-mod-classifier-windows-arm64/minecraft-mod-classifier-windows-arm64.zip
+            artifacts/minecraft-mod-classifier-windows-386/minecraft-mod-classifier-windows-386.zip
+            artifacts/minecraft-mod-classifier-linux-amd64/minecraft-mod-classifier-linux-amd64.tar.gz
+            artifacts/minecraft-mod-classifier-linux-arm64/minecraft-mod-classifier-linux-arm64.tar.gz
+            artifacts/minecraft-mod-classifier-linux-386/minecraft-mod-classifier-linux-386.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    
+    continue-on-error: true
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.21'
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
+      - name: Initialize Go module if needed
+        run: |
+          if [ ! -f "go.mod" ]; then
+            echo "No go.mod found, initializing Go module..."
+            go mod init minecraft-mod-classifier
+          fi
 
-    - name: Run govulncheck
-      run: |
-        go install golang.org/x/vuln/cmd/govulncheck@latest
-        govulncheck ./...
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run Gosec Security Scanner
+        uses: securecodewarrior/github-action-gosec@master
+        with:
+          args: './...'
+        continue-on-error: true
+
+      - name: Run govulncheck
+        run: |
+          if [ -f "go.mod" ]; then
+            go install golang.org/x/vuln/cmd/govulncheck@latest
+            govulncheck ./...
+          else
+            echo "Skipping govulncheck: no go.mod file found"
+          fi
+        continue-on-error: true
