@@ -1,255 +1,187 @@
-name: Multi-Platform Build
+name: Cross-Platform Build
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, master, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master, develop ]
   release:
-    types: [ published ]
-
-env:
-  GO_VERSION: '1.23'
-  BINARY_NAME: minecraft-mod-classifier
+    types: [published]
 
 jobs:
   build:
-    name: Build for ${{ matrix.os }}-${{ matrix.arch }}
+    name: Build ${{ matrix.os }}-${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          # Windows builds
-          - os: windows
-            arch: amd64
-            runner: windows-latest
-            goos: windows
-            goarch: amd64
-            binary_suffix: .exe
-            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-amd64.zip"
-          - os: windows
-            arch: arm64
-            runner: windows-latest
-            goos: windows
-            goarch: arm64
-            binary_suffix: .exe
-            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-arm64.zip"
-          - os: windows
-            arch: 386
-            runner: windows-latest
-            goos: windows
-            goarch: 386
-            binary_suffix: .exe
-            archive_cmd: "powershell Compress-Archive -Path release/* -DestinationPath minecraft-mod-classifier-windows-386.zip"
-
           # Linux builds
           - os: linux
-            arch: amd64
+            arch: x86_64
             runner: ubuntu-latest
-            goos: linux
-            goarch: amd64
-            binary_suffix: ""
-            archive_cmd: "tar -czf minecraft-mod-classifier-linux-amd64.tar.gz -C release ."
+            c_compiler: gcc
+            cpp_compiler: g++
+            executable_suffix: ""
+            cmake_arch: ""
           - os: linux
-            arch: arm64
+            arch: aarch64
             runner: ubuntu-latest
-            goos: linux
-            goarch: arm64
-            binary_suffix: ""
-            archive_cmd: "tar -czf minecraft-mod-classifier-linux-arm64.tar.gz -C release ."
+            c_compiler: aarch64-linux-gnu-gcc
+            cpp_compiler: aarch64-linux-gnu-g++
+            executable_suffix: ""
+            cmake_arch: "-DCMAKE_SYSTEM_PROCESSOR=aarch64"
           - os: linux
-            arch: 386
+            arch: i386
             runner: ubuntu-latest
-            goos: linux
-            goarch: 386
-            binary_suffix: ""
-            archive_cmd: "tar -czf minecraft-mod-classifier-linux-386.tar.gz -C release ."
+            c_compiler: gcc
+            cpp_compiler: g++
+            executable_suffix: ""
+            cmake_arch: "-DCMAKE_CXX_FLAGS=-m32 -DCMAKE_C_FLAGS=-m32"
+          # Windows builds
+          - os: windows
+            arch: x86_64
+            runner: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            executable_suffix: ".exe"
+            cmake_arch: "-A x64"
+          - os: windows
+            arch: aarch64
+            runner: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            executable_suffix: ".exe"
+            cmake_arch: "-A ARM64"
+          - os: windows
+            arch: i386
+            runner: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            executable_suffix: ".exe"
+            cmake_arch: "-A Win32"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
         with:
-          go-version: ${{ env.GO_VERSION }}
+          submodules: recursive
 
-      - name: Cache Go modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Initialize Go module if needed
+      - name: Install dependencies (Linux)
+        if: matrix.os == 'linux'
         run: |
-          if [ ! -f "go.mod" ]; then
-            echo "No go.mod found, initializing Go module..."
-            go mod init minecraft-mod-classifier
-          fi
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Verify Go installation
-        run: go version
-
-      - name: Run tests (amd64 only)
-        if: matrix.arch == 'amd64'
-        run: go test -v ./...
-        continue-on-error: true
-
-      - name: Build binary
-        env:
-          GOOS: ${{ matrix.goos }}
-          GOARCH: ${{ matrix.goarch }}
-          CGO_ENABLED: 0
-        run: |
-          go build -v -ldflags="-s -w" -o ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} .
-
-      - name: Verify binary was created
-        shell: bash
-        run: |
-          ls -la ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }}
-
-      - name: Create release directory
-        run: mkdir -p release
-
-      - name: Copy binary to release directory
-        shell: bash
-        run: |
-          cp ${{ env.BINARY_NAME }}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.binary_suffix }} release/
-
-      - name: Copy assets if they exist
-        shell: bash
-        run: |
-          if [ -d "assets" ]; then
-            echo "Copying assets directory..."
-            cp -r assets release/
-          else
-            echo "No assets directory found, creating empty assets directory..."
-            mkdir -p release/assets
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build
+          
+          # ARM64 交叉编译工具链
+          if [ "${{ matrix.arch }}" == "aarch64" ]; then
+            sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
           fi
           
-          if [ -f "assets/mods-data.json" ]; then
-            echo "Found mods-data.json, copying to release..."
-            cp assets/mods-data.json release/
-          else
-            echo "mods-data.json not found in assets directory"
-            # Create a placeholder if needed
-            echo '{"mods": []}' > release/assets/mods-data.json
+          # i386 支持
+          if [ "${{ matrix.arch }}" == "i386" ]; then
+            sudo apt-get install -y gcc-multilib g++-multilib
           fi
 
-      - name: Copy additional files
-        shell: bash
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows'
         run: |
-          # Copy README, LICENSE, and other important files if they exist
-          for file in README.md LICENSE* CHANGELOG* config.* *.yml *.yaml; do
+          choco install ninja
+
+      - name: Configure CMake (Linux)
+        if: matrix.os == 'linux'
+        run: |
+          cmake -B ${{ github.workspace }}/build \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+            -DCMAKE_BUILD_TYPE=Release \
+            -G Ninja \
+            ${{ matrix.cmake_arch }}
+
+      - name: Configure CMake (Windows)
+        if: matrix.os == 'windows'
+        run: |
+          cmake -B ${{ github.workspace }}/build \
+            -DCMAKE_BUILD_TYPE=Release \
+            ${{ matrix.cmake_arch }}
+
+      - name: Build
+        run: |
+          cmake --build ${{ github.workspace }}/build --config Release
+
+      - name: Test
+        if: matrix.arch == 'x86_64' # 只在x86_64架构上运行测试
+        working-directory: ${{ github.workspace }}/build
+        run: |
+          ctest --build-config Release --output-on-failure
+
+      - name: Package artifacts
+        run: |
+          mkdir -p artifacts
+          
+          # 查找并复制可执行文件
+          if [ "${{ matrix.os }}" == "windows" ]; then
+            # Windows 构建输出路径
+            find build -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
+            find build/Release -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \; 2>/dev/null || true
+          else
+            # Linux 构建输出路径
+            find build -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
+          fi
+          
+          # 复制数据文件
+          if [ -f "assets/mods-data.json" ]; then
+            cp assets/mods-data.json artifacts/
+          fi
+          
+          # 重命名文件以包含架构信息
+          cd artifacts
+          for file in *${{ matrix.executable_suffix }}; do
             if [ -f "$file" ]; then
-              echo "Copying $file..."
-              cp "$file" release/
+              mv "$file" "${file%${{ matrix.executable_suffix }}}-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.executable_suffix }}"
             fi
           done
-
-      - name: List release contents
         shell: bash
-        run: |
-          echo "Release directory contents:"
-          find release -type f -exec ls -la {} \;
 
-      - name: Create archive
-        shell: bash
-        run: |
-          ${{ matrix.archive_cmd }}
-
-      - name: Verify archive was created
-        shell: bash
-        run: |
-          if [ "${{ matrix.os }}" == "windows" ]; then
-            ls -la minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.zip
-          else
-            ls -la minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
-          fi
-
-      - name: Upload build artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}
-          path: |
-            minecraft-mod-classifier-${{ matrix.os }}-${{ matrix.arch }}.*
-          retention-days: 7
+          path: artifacts/
+          retention-days: 30
 
   release:
-    name: Create Release
+    if: github.event_name == 'release'
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
-
     steps:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          path: artifacts
+          path: release-artifacts
 
-      - name: Display structure of downloaded files
+      - name: Create release archives
         run: |
-          echo "Downloaded artifacts:"
-          find artifacts -type f -exec ls -la {} \;
+          cd release-artifacts
+          for dir in */; do
+            if [ -d "$dir" ]; then
+              cd "$dir"
+              if [[ "$dir" == *"windows"* ]]; then
+                # Windows 平台使用 zip
+                zip -r "../${dir%/}.zip" *
+              else
+                # Linux 平台使用 tar.gz
+                tar -czf "../${dir%/}.tar.gz" *
+              fi
+              cd ..
+            fi
+          done
 
       - name: Upload release assets
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/minecraft-mod-classifier-windows-amd64/minecraft-mod-classifier-windows-amd64.zip
-            artifacts/minecraft-mod-classifier-windows-arm64/minecraft-mod-classifier-windows-arm64.zip
-            artifacts/minecraft-mod-classifier-windows-386/minecraft-mod-classifier-windows-386.zip
-            artifacts/minecraft-mod-classifier-linux-amd64/minecraft-mod-classifier-linux-amd64.tar.gz
-            artifacts/minecraft-mod-classifier-linux-arm64/minecraft-mod-classifier-linux-arm64.tar.gz
-            artifacts/minecraft-mod-classifier-linux-386/minecraft-mod-classifier-linux-386.tar.gz
+            release-artifacts/*.tar.gz
+            release-artifacts/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  security-scan:
-    name: Security Scan
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-    continue-on-error: true
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ env.GO_VERSION }}
-
-      - name: Initialize Go module if needed
-        run: |
-          if [ ! -f "go.mod" ]; then
-            echo "No go.mod found, initializing Go module..."
-            go mod init minecraft-mod-classifier
-          fi
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Run Gosec Security Scanner
-        uses: securecodewarrior/github-action-gosec@master
-        with:
-          args: './...'
-        continue-on-error: true
-
-      - name: Run govulncheck
-        run: |
-          if [ -f "go.mod" ]; then
-            go install golang.org/x/vuln/cmd/govulncheck@latest
-            govulncheck ./...
-          else
-            echo "Skipping govulncheck: no go.mod file found"
-          fi
-        continue-on-error: true
