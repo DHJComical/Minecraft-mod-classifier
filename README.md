@@ -13,6 +13,7 @@
     - 客户端和服务端都可选 (ClientOptionalServerOptional)
 - 智能文件名清理: 程序能够自动处理 Mod 文件名中常见的干扰信息，如版本号（例如 1.16.5-1.0.0）、Minecraft 版本（例如 mc1.12）以及方括号内的中文译名（例如 [我的模组]），确保能与 mods_data.json 中定义的“干净”Mod 名称进行准确匹配。
 - 日志系统: 所有重要的程序运行信息、分类结果、警告和错误都会被记录到 mod_classifier.log 文件中，方便用户查看和调试。
+- 注：这个工具仅仅能分出Mod类型，但是不能保证Mod一定可以跑在服务端上，有些Mod天生服务端兼容性差，若出现报错请先核对日志，然后查看对应Mod是否分类正确，如的确为分类问题在提交Issue或PR
 
 ## 如何使用
 - 在[Release](https://github.com/DHJComical/Minecraft-mod-classifier/releases)里下载最新发行版的Minecraft-mod-classifier.exe和mods_data.json(你也可以在项目文件里获得最新的mods_data.json)
