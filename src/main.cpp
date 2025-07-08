@@ -15,8 +15,39 @@
 #include <windows.h>
 #endif
 
+
+// 在文件顶部添加这个包含
+#ifdef _WIN32
+#include <conio.h>  // 用于 _getch() 函数
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif
+
 namespace fs = std::filesystem;
 using json = nlohmann::json;
+
+// 跨平台的按任意键函数
+void pressAnyKeyToExit() {
+#ifdef _WIN32
+    std::cout << "按任意键退出..." << std::endl;
+    _getch(); // Windows 下直接使用 _getch()，不需要按回车
+#else
+    // Linux/Unix 系统下的实现
+    std::cout << "按任意键退出..." << std::endl;
+
+    struct termios oldt, newt;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    getchar(); // 等待按键
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // 恢复终端设置
+#endif
+}
+
 
 // 全局日志文件流
 std::ofstream logFile;
@@ -108,13 +139,23 @@ std::string getCleanModName(const std::string& fullFileName) {
     std::regex bracket_regex("\\[[^\\]]*\\]");
     nameWithoutExt = std::regex_replace(nameWithoutExt, bracket_regex, "");
 
-    // 2. 迭代移除版本号、Minecraft版本、加载器后缀和通用标签
+    // 2. 移除文件名开头的 Minecraft 版本号 (如 1.12.2-, 1.16.5- 等)
+    // 匹配模式：开头的数字.数字.数字格式，后跟连字符
+    std::regex mc_version_prefix_regex("^[0-9]+\\.[0-9]+(?:\\.[0-9]+)*[-_]", std::regex_constants::icase);
+    nameWithoutExt = std::regex_replace(nameWithoutExt, mc_version_prefix_regex, "");
+
+    // 3. 移除 "for [加载器名称]" 模式 (例如 "for NilLoader", "for Forge", "for Fabric")
+    // 匹配模式：空格或连字符后跟 "for" 再跟空格和加载器名称
+    std::regex for_loader_regex("\\s+for\\s+[a-zA-Z]+", std::regex_constants::icase);
+    nameWithoutExt = std::regex_replace(nameWithoutExt, for_loader_regex, "");
+
+    // 4. 迭代移除文件名末尾的版本号、Minecraft版本、加载器后缀和通用标签
     // 匹配模式：
     //   - `[-_+\\s.]` 作为分隔符 (允许连字符、下划线、加号、空格、点)
     //   - 后跟：
     //     - `v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*` (标准版本号，如 -1.0.0, +1.20.1, -v1.0.0-beta)
     //     - `mc[0-9]+(?:\\.[0-9]+)*` (Minecraft 版本号，如 -mc1.16.5)
-    //     - `forge|fabric|quilt|neoforge|rift|liteloader` (精确匹配的加载器名称)
+    //     - `forge|fabric|quilt|neoforge|rift|liteloader|nilloader` (精确匹配的加载器名称)
     //     - `snapshot|pre|rc|beta|alpha` (精确匹配的发布阶段)
     //     - `universal|all` (精确匹配的通用标签)
     //   - `$` 确保匹配发生在字符串的末尾
@@ -123,7 +164,7 @@ std::string getCleanModName(const std::string& fullFileName) {
             "(?:" // Start non-capturing group for the patterns to remove
             "v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*" // Standard version, e.g., -1.0.0, +1.20.1, -v1.0.0-beta
             "|mc[0-9]+(?:\\.[0-9]+)*" // Minecraft version, e.g., -mc1.16.5
-            "|forge|fabric|quilt|neoforge|rift|liteloader" // Exact loader names
+            "|forge|fabric|quilt|neoforge|rift|liteloader|nilloader" // Exact loader names (added nilloader)
             "|snapshot|pre|rc|beta|alpha" // Exact release stages
             "|universal|all" // Exact common tags
             ")" // End non-capturing group for patterns
@@ -139,12 +180,7 @@ std::string getCleanModName(const std::string& fullFileName) {
     } while (tempName != prevName); // 如果 tempName 改变了，说明有匹配并被移除，继续循环
     nameWithoutExt = tempName;
 
-    // 3. 最终检查：如果清理后的名称以连字符或下划线结尾，则移除它
-    while (!nameWithoutExt.empty() && (nameWithoutExt.back() == '-' || nameWithoutExt.back() == '_')) {
-        nameWithoutExt.pop_back();
-    }
-
-    // 4. 移除多余的空格，并修剪首尾空格
+    // 5. 移除多余的空格，并修剪首尾空格
     // 移除连续的空格
     nameWithoutExt = std::regex_replace(nameWithoutExt, std::regex(" +"), " ");
     // 移除首尾空格
@@ -156,7 +192,7 @@ std::string getCleanModName(const std::string& fullFileName) {
         nameWithoutExt = nameWithoutExt.substr(first, (last - first + 1));
     }
 
-    // 5. 将清理后的名称转换为小写，以便与 JSON 中的名称进行大小写不敏感的匹配
+    // 6. 将清理后的名称转换为小写，以便与 JSON 中的名称进行大小写不敏感的匹配
     std::transform(nameWithoutExt.begin(), nameWithoutExt.end(), nameWithoutExt.begin(),
                    [](unsigned char c){ return std::tolower(c); });
 
@@ -332,10 +368,8 @@ int main(int argc, char* argv[]) { // main函数现在接收命令行参数
 
     logMessage("Mod 分类完成！", false); // 记录程序完成
 
-    // 添加这一行，等待用户按任意键才关闭窗口
-    std::cout << "按任意键退出..." << std::endl; // Prompt user to press a key
-    std::cin.ignore(); // 忽略缓冲区中可能存在的任何字符（例如之前的换行符）
-    std::cin.get();    // 等待用户输入一个字符 (即按任意键)
+    // 使用新的按任意键函数
+    pressAnyKeyToExit();
 
     logFile.close(); // 程序结束前关闭日志文件
     return 0;
