@@ -91,19 +91,12 @@ jobs:
       - name: Configure CMake (Linux)
         if: matrix.os == 'linux'
         run: |
-          cmake -B ${{ github.workspace }}/build \
-            -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
-            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
-            -DCMAKE_BUILD_TYPE=Release \
-            -G Ninja \
-            ${{ matrix.cmake_arch }}
+          cmake -B ${{ github.workspace }}/build -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} -DCMAKE_BUILD_TYPE=Release -G Ninja ${{ matrix.cmake_arch }}
 
       - name: Configure CMake (Windows)
         if: matrix.os == 'windows'
         run: |
-          cmake -B ${{ github.workspace }}/build \
-            -DCMAKE_BUILD_TYPE=Release \
-            ${{ matrix.cmake_arch }}
+          cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release ${{ matrix.cmake_arch }}
 
       - name: Build
         run: |
