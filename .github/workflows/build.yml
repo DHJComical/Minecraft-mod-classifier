@@ -2,9 +2,9 @@ name: Cross-Platform Build
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main ]
   release:
     types: [published]
 
@@ -108,23 +108,33 @@ jobs:
         run: |
           ctest --build-config Release --output-on-failure
 
+      - name: Debug - List build directory
+        run: |
+          echo "=== Build directory structure ==="
+          find build -type f -name "*" | head -20
+          echo "=== Looking for executable files ==="
+          find build -name "*Minecraft-mod-classifier*" -type f
+          echo "=== Looking for data files ==="
+          find . -name "mods_data.json" -o -name "mods-data.json"
+        shell: bash
+
       - name: Package artifacts
         run: |
           mkdir -p artifacts
           
-          # 查找并复制可执行文件
+          # 查找并复制可执行文件 (注意大小写)
           if [ "${{ matrix.os }}" == "windows" ]; then
             # Windows 构建输出路径
-            find build -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
-            find build/Release -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \; 2>/dev/null || true
+            find build -name "*Minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
+            find build/Release -name "*Minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \; 2>/dev/null || true
           else
             # Linux 构建输出路径
-            find build -name "*minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
+            find build -name "*Minecraft-mod-classifier*${{ matrix.executable_suffix }}" -type f -exec cp {} artifacts/ \;
           fi
           
-          # 复制数据文件
-          if [ -f "assets/mods-data.json" ]; then
-            cp assets/mods-data.json artifacts/
+          # 复制数据文件 (注意文件名是 mods_data.json)
+          if [ -f "assets/mods_data.json" ]; then
+            cp assets/mods_data.json artifacts/
           fi
           
           # 重命名文件以包含架构信息
