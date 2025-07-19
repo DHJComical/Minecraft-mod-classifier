@@ -4,6 +4,10 @@
     "type": "client_required_server_optional"
   },
   {
+    "name": "cme_championhelper.jar",
+    "type": "unknown"
+  },
+  {
     "name": "hadenoughitems.jar",
     "type": "client_required_server_optional"
   },
@@ -53,6 +57,10 @@
   },
   {
     "name": "vintagefix.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "cristellib.jar",
     "type": "client_optional_server_optional"
   },
   {
@@ -225,6 +233,14 @@
   },
   {
     "name": "searchables.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "colorfulhearts.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "crosshairbobbing.jar",
     "type": "client_only"
   },
   {
@@ -489,6 +505,66 @@
   },
   {
     "name": "citadel_fix.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "combatnouveau.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "culinaryconstruct.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dungeons-and-taverns-pillager-outpost-rework.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dungeons_enhanced.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "eclipticseasons.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "eeeabsmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dummmmmmy.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "customstartinggear.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dragonseeker.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dragonfinder.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "disenchanting.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cutthrough.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "comforts.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "constructionwand.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cosmeticarmorreworked.jar",
     "type": "client_and_server_required"
   },
   {
