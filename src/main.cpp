@@ -142,18 +142,27 @@ std::string getCleanModName(const std::string& fullFileName) {
     std::regex bracket_regex("\\[[^\\]]*\\]");
     nameWithoutExt = std::regex_replace(nameWithoutExt, bracket_regex, "");
 
-    // 2. 处理非英文前缀, 如 "仓鼠hamsters" -> "hamsters"
-    auto first_letter_it = std::find_if(nameWithoutExt.begin(), nameWithoutExt.end(), [](char c) {
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-    });
+    // 2a. 移除特定的非标准分隔符, 如 '·'
+    // The middle dot character · is encoded as C2 B7 in UTF-8
+    nameWithoutExt = std::regex_replace(nameWithoutExt, std::regex("\xC2\xB7"), "");
 
-    if (first_letter_it != nameWithoutExt.end()) {
-        size_t first_letter_pos = std::distance(nameWithoutExt.begin(), first_letter_it);
-        if (first_letter_pos > 0) {
-            unsigned char first_char = nameWithoutExt[0];
-            if (first_char > 127) {
-                nameWithoutExt = nameWithoutExt.substr(first_letter_pos);
-            }
+    // 2b. 处理混合语言前缀
+    size_t last_non_ascii_pos = std::string::npos;
+    for (int i = nameWithoutExt.length() - 1; i >= 0; --i) {
+        if (static_cast<unsigned char>(nameWithoutExt[i]) > 127) {
+            last_non_ascii_pos = i;
+            break;
+        }
+    }
+
+    if (last_non_ascii_pos != std::string::npos && last_non_ascii_pos + 1 < nameWithoutExt.length()) {
+        std::string suffix_part = nameWithoutExt.substr(last_non_ascii_pos + 1);
+        auto it = std::find_if(suffix_part.begin(), suffix_part.end(), [](char c){
+            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+        });
+
+        if (it != suffix_part.end()) {
+            nameWithoutExt = suffix_part;
         }
     }
 
@@ -165,13 +174,13 @@ std::string getCleanModName(const std::string& fullFileName) {
     std::regex for_loader_regex("\\s+for\\s+[a-zA-Z]+", std::regex_constants::icase);
     nameWithoutExt = std::regex_replace(nameWithoutExt, for_loader_regex, "");
 
-    // 5. 新增：在加载器和数字之间插入空格, 以规范 "forge1.20.1" 这样的名称
+    // 5. 在加载器和数字之间插入空格, 以规范 "forge1.20.1" 这样的名称
     std::regex loader_digit_regex(
-            "(forge|fabric|quilt|neoforge|rift|liteloader|nilloader)" // 加载器名称
-            "([0-9])",                                               // 紧跟一个数字
+            "(forge|fabric|quilt|neoforge|rift|liteloader|nilloader)"
+            "([0-9])",
             std::regex_constants::icase
     );
-    nameWithoutExt = std::regex_replace(nameWithoutExt, loader_digit_regex, "$1 $2"); // 替换为 "加载器 数字"
+    nameWithoutExt = std::regex_replace(nameWithoutExt, loader_digit_regex, "$1 $2");
 
     // 6. 迭代移除文件名末尾的版本号、加载器等后缀
     std::regex suffix_regex(
@@ -194,13 +203,13 @@ std::string getCleanModName(const std::string& fullFileName) {
     } while (tempName != prevName);
     nameWithoutExt = tempName;
 
-    // 7. 移除多余的空格, 并修剪首尾空格
+    // 7. 移除多余的空格, 并修剪首尾空格和分隔符
     nameWithoutExt = std::regex_replace(nameWithoutExt, std::regex(" +"), " ");
-    size_t first = nameWithoutExt.find_first_not_of(' ');
+    size_t first = nameWithoutExt.find_first_not_of(" -_");
     if (std::string::npos == first) {
         nameWithoutExt = "";
     } else {
-        size_t last = nameWithoutExt.find_last_not_of(' ');
+        size_t last = nameWithoutExt.find_last_not_of(" -_");
         nameWithoutExt = nameWithoutExt.substr(first, (last - first + 1));
     }
 
