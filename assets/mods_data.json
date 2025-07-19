@@ -28,6 +28,14 @@
     "type": "client_required_server_optional"
   },
   {
+    "name": "forgeconfigscreens.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "iceberg.jar",
+    "type": "client_required_server_optional"
+  },
+  {
     "name": "polylib.jar",
     "type": "client_required_server_optional"
   },
@@ -49,6 +57,10 @@
   },
   {
     "name": "cloth-config.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "kryptonreforged.jar",
     "type": "client_optional_server_optional"
   },
   {
@@ -173,6 +185,10 @@
   },
   {
     "name": "dimthread.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "letmefeedyou.jar",
     "type": "client_optional_server_required"
   },
   {
@@ -452,6 +468,50 @@
     "type": "client_only"
   },
   {
+    "name": "enchantmentdescriptions.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "legendarytooltips.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "lanserverproperties.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "itemborders.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "gpumemleakfix.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "freecam.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "fancymenu.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "entity_model_features.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "entity_texture_features.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "immersiveui.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "entity_sound_features.jar",
+    "type": "client_only"
+  },
+  {
     "name": "ruok.jar",
     "type": "client_only"
   },
@@ -521,6 +581,126 @@
   },
   {
     "name": "dungeons_enhanced.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "elainabroom.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "lionfishapi.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "lootjs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "legendarymonsters.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "kubejs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "immersive_aircraft.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "irons_spellbooks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "itemblacklist.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "incineratorstryhard.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ironfurnaces.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "invtweaks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ice_and_fire_delight.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ice_and_fire_spellbooks.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "horsecombatcontrols.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "hitfeedback.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "framework.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "hotbath.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "icarus.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "iaf_patcher.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "goetyrevelation.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "flib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "enchanted_arsenal.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "explorerscompass-edited.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fumo.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "fzzy_config.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "glowingraidillagers.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "goety.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "goety_cataclysm.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "exposure.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "exposure_catalog.jar",
     "type": "client_and_server_required"
   },
   {
