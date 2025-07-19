@@ -188,6 +188,10 @@
     "type": "client_optional_server_required"
   },
   {
+    "name": "ati_structuresvanilla.jar",
+    "type": "client_optional_server_required"
+  },
+  {
     "name": "chunky.jar",
     "type": "client_optional_server_required"
   },
@@ -408,6 +412,30 @@
     "type": "client_only"
   },
   {
+    "name": "battlemusic.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "biomemusic.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "caelum.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "beb.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "bettertaskbar.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "bouncierbeds.jar",
+    "type": "client_only"
+  },
+  {
     "name": "ruok.jar",
     "type": "client_only"
   },
@@ -441,6 +469,106 @@
   },
   {
     "name": "+fugue.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "add_potion.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "caelus.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cagedmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cialloblade.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "citadel_fix.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "clickadv.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cluttered.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "champions.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "call_of_drowner.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "celestial_artifacts.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "cerbonsapi.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "celestial_core.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "broomsmodunofficial.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "butcher.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "bettertridents.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "blackaures_paintings.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "bomd.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "attributefix.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "badmobs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alcocraftplus.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alexscaves.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alexsdelight.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "alwayseat.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "artifacts.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "astikorcarts.jar",
     "type": "client_and_server_required"
   },
   {
