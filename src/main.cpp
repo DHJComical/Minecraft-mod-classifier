@@ -143,7 +143,6 @@ std::string getCleanModName(const std::string& fullFileName) {
     nameWithoutExt = std::regex_replace(nameWithoutExt, bracket_regex, "");
 
     // 2a. 移除特定的非标准分隔符, 如 '·'
-    // The middle dot character · is encoded as C2 B7 in UTF-8
     nameWithoutExt = std::regex_replace(nameWithoutExt, std::regex("\xC2\xB7"), "");
 
     // 2b. 处理混合语言前缀
@@ -184,13 +183,13 @@ std::string getCleanModName(const std::string& fullFileName) {
 
     // 6. 迭代移除文件名末尾的版本号、加载器等后缀
     std::regex suffix_regex(
-            "[-_+\\s.]"
+            "[-_+\\s.]+"
             "(?:"
             "v?[0-9]+(?:[\\._\\-][0-9a-zA-Z_+-]+)*"
             "|mc[0-9]+(?:\\.[0-9]+)*"
             "|forge|fabric|quilt|neoforge|rift|liteloader|nilloader"
             "|snapshot|pre|rc|beta|alpha"
-            "|universal|all"
+            "|universal|all|mc"
             ")"
             "\\s*$", std::regex_constants::icase
     );
