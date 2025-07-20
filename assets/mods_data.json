@@ -8,11 +8,35 @@
     "type": "unknown"
   },
   {
+    "name": "timeslowmod.jar",
+    "type": "unknown"
+  },
+  {
     "name": "hadenoughitems.jar",
     "type": "client_required_server_optional"
   },
   {
     "name": "jeroreintegration.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "potionparticlepack.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "comics bubbles chat.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "xaerosworldmap.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "xaeros_minimap.jar",
+    "type": "client_required_server_optional"
+  },
+  {
+    "name": "prism.jar",
     "type": "client_required_server_optional"
   },
   {
@@ -97,6 +121,18 @@
   },
   {
     "name": "collective.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "nightconfigfixes.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "rhino.jar",
+    "type": "client_optional_server_optional"
+  },
+  {
+    "name": "openloader.jar",
     "type": "client_optional_server_optional"
   },
   {
@@ -189,6 +225,34 @@
   },
   {
     "name": "letmefeedyou.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "mes.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "healthnanfix.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "yungsapi.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "yungsbridges.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "towns-and-towers.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "tpmaster.jar",
+    "type": "client_optional_server_required"
+  },
+  {
+    "name": "tact.jar",
     "type": "client_optional_server_required"
   },
   {
@@ -524,6 +588,62 @@
     "type": "client_only"
   },
   {
+    "name": "searchonmcmod.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "travelerstitles.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "visual_keybinder.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "datapackloaderrorfix.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "visuality.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "sounds.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "shouldersurfing.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "overloadedarmorbar.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "constantmusic.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "bh.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "namepain.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "enhanced_boss_bars.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "melody.jar",
+    "type": "client_only"
+  },
+  {
+    "name": "satisfying_buttons.jar",
+    "type": "client_only"
+  },
+  {
     "name": "sakura.jar",
     "type": "client_only"
   },
@@ -665,6 +785,330 @@
   },
   {
     "name": "flib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "lootr.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "dreadsteel.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "gamediscs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "minersglasses.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "pathfinder.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "exporbrecall.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "no trampling on farmland.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ringsofascension.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "rarcompat.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ironchests.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "absolutelyunbreakable.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "commandsceptre.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tarotcards.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "zenith.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "farmingforblockheads.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "extrameat.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "hamsters.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "yakumoblade.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "wukong.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "zunpetforge.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "zetter.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "usefulspyglass.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "yesstevemodel.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "wab.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tips.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "totw_modded.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "touhoulittlemaid.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "toms_storage.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tonsofenchants.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "takesapillage.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tacz_fire_control_extension.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "tacz.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "taczlabs.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "taczaddon.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "subtleeffects.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "structure_gel.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "splash_milk.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "spawnermod.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "solcarrot.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "soulslike-weaponry.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "shutter.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "simpletomb.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "skyarena.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "shetiphiancore.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "shadowizardlib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "sherdsapi.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "rideeverything.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "riding_partners.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "resourcefulconfig.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "relics.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "puzzleslib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "quick_refine.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "realmrpg_pots_and_mimics.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "ramcompat.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "propertymodifier.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "projectile_damage.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "prefab.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "polymorph.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "portablehole.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "pickablepets.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "pillagers gun.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "patchouli.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "parcool.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "paintings.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "nocreeperexplosion.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "not_interested.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "octolib.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "naturescompass.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "moonlight.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "refurbished_furniture.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mru.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "multibeds.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "multimine.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mugging_villagers_mod.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mo-glass.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mine-treasure.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "mermod.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "meetyourfight.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "l_enders_cataclysm.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "maidsoulkitchen.jar",
+    "type": "client_and_server_required"
+  },
+  {
+    "name": "man_of_many_planes.jar",
     "type": "client_and_server_required"
   },
   {
